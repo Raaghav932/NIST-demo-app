@@ -1,6 +1,11 @@
 <template>
+  <h1>Welcome to the online store!</h1>
+
   <img src="https://cdn.geekwire.com/wp-content/uploads/2020/02/amzngo1.jpeg" width="400" height="200">
 
+
+
+  <!-- This is the form and it also prevents the 'standard' from submission -->
   <form @submit.prevent="handleSubmit">
     <label>Email:</label>
     <input type="email" required v-model="email">
@@ -34,6 +39,9 @@
       <input type="checkbox" value = "Tv" v-model="referral">
       <label>Television Advertisement</label>
     </div>
+
+
+    <!-- this is the functionality for the purchases -->
 
     <label>What do you want to purchase:</label>
     <input type="text" v-model="tempPurch" @keyup.enter="addPurch">
@@ -69,6 +77,9 @@ export default {
       passwordError: '',
     }
   },
+  
+  //These are the methods for the pruchases and when the form submits
+
   methods:{
     addPurch(e){
       if(this.tempPurch){
@@ -102,6 +113,9 @@ export default {
   }
 }
 </script>
+
+
+<!-- This is the styling -->
 
 <style>
 form{
