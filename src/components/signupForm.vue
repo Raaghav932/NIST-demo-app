@@ -1,4 +1,6 @@
 <template>
+  <img src="https://cdn.geekwire.com/wp-content/uploads/2020/02/amzngo1.jpeg" width="400" height="200">
+
   <form @submit.prevent="handleSubmit">
     <label>Email:</label>
     <input type="email" required v-model="email">
@@ -9,9 +11,9 @@
     <div v-if = "passwordError" class ="error">{{ passwordError }}</div>
 
     <label>Role:</label>
-    <select v-model='role'>
-      <option value="developer">Web Developer</option>
-      <option value="designer">Designer</option>
+    <select v-model='membership'>
+      <option value="free">Free Member</option>
+      <option value="paid">Paid Member</option>
     </select>
 
     <div class="terms">
@@ -19,25 +21,26 @@
       <label>Accept Terms and Conditions </label>
     </div>
 
+    <label>How did you hear about us</label>
     <div>
-      <input type="checkbox" value = "Shaun" v-model="names">
-      <label>Shaun</label>
+      <input type="checkbox" value = "Ads" v-model="referral">
+      <label>Advertisement</label>
     </div>
     <div>
-      <input type="checkbox" value = "Yoshi" v-model="names">
-      <label>Yoshi</label>
+      <input type="checkbox" value = "Web" v-model="referral">
+      <label>Web Search</label>
     </div>
         <div>
-      <input type="checkbox" value = "Mario" v-model="names">
-      <label>Mario</label>
+      <input type="checkbox" value = "Tv" v-model="referral">
+      <label>Television Advertisement</label>
     </div>
 
-    <label>Skills:</label>
-    <input type="text" v-model="tempSkill" @keyup.enter="addSkill">
-    <div v-for = "skill in skills" :key="skill" class = 'pill'>
-      <span @click="deleteSkill(skill)">{{ skill }}</span>
+    <label>What do you want to purchase:</label>
+    <input type="text" v-model="tempPurch" @keyup.enter="addPurch">
+    <div v-for = "purchase in purchases" :key="purchase" class = 'pill'>
+      <span @click="deletePurchase(purchase)">{{ purchase }}</span>
     </div>
-
+    <button type="submit" disabled style="display: none" aria-hidden="true"></button>
     <div class = "submit">
       <button>Create an Account</button>
     </div>
@@ -46,9 +49,9 @@
 
   <p>Email: {{ email }}</p>
   <p>Password: {{ password }}</p>
-  <p>Role: {{ role }} </p>
+  <p>Role: {{ membership }} </p>
   <p>Terms accepted: {{ terms }} </p>
-  <p>Names: {{ names }} </p>
+  <p>Referrals: {{ referral }} </p>
 </template>
 
 <script>
@@ -58,28 +61,28 @@ export default {
     return{
       email: '',
       password: '',
-      role: 'designer',
+      membership: 'free',
       terms: false,
-      names:[],
-      tempSkill: '',
-      skills: [],
+      referral:[],
+      tempPurch: '',
+      purchases: [],
       passwordError: '',
     }
   },
   methods:{
-    addSkill(e){
-      if(this.tempSkill){
-        if(!this.skills.includes(this.tempSkill)){
-          console.log("Adding Skill")
-          this.skills.push(this.tempSkill)
-          this.tempSkill = ''
+    addPurch(e){
+      if(this.tempPurch){
+        if(!this.purchases.includes(this.tempPurch)){
+          console.log("Adding purchase")
+          this.purchases.push(this.tempPurch)
+          this.tempPurch = ''
         }
       }
     },
 
-    deleteSkill(skill){
-      this.skills = this.skills.filter((item) => {
-        return skill !== item
+    deletePurchase(purchase){
+      this.purchases = this.purchases.filter((item) => {
+        return purchase !== item
       })
     },
 
@@ -89,9 +92,10 @@ export default {
       if(!this.passwordError){
         console.log("Email: ", this.email)
         console.log("Password: ", this.password)
-        console.log("Role: ", this.role)
-        console.log("Skills: ", this.skills)
+        console.log("Membership: ", this.role)
+        console.log("Referral: ", this.skills)
         console.log("Therms: ", this.terms)
+        window.alert("Thank you for your order")
       }
     }
 
